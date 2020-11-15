@@ -1,10 +1,14 @@
 var express = require('express');
 var notesController = require('./controller/notes');
+var mongoose = require('./utils/mongoConnection');
 
 var app = express()
 
 //Env vars
 const PORT = 4000;
+
+
+
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
