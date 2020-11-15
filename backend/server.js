@@ -1,6 +1,6 @@
 var express = require('express');
-var notesController = require('./controller/notes');
-var mongoose = require('./utils/mongoConnection');
+var notesController = require('./controller/notesController');
+
 
 var app = express()
 
