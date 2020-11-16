@@ -1,5 +1,5 @@
-var express = require('express');
-var notesController = require('./controller/notesController');
+import express from 'express'
+import notesRouter from './controller/notesController.js'
 
 
 var app = express()
@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
   res.send('hello world')
 })
 
-app.use('/notes', notesController);
+app.use('/notes', notesRouter);
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`)

@@ -1,11 +1,11 @@
-var express = require('express');
-var Note = require('../model/notesModel');
-var MongoConnection = require('../utils/mongoConnection');
+import express from 'express'
+import Note from '../model/notesModel.js';
+import mongoConnection from '../utils/mongoConnection.js'
 
 var router = express.Router();
 
 router.get('/', async function (req, res) {
-  const mognoConnection = await MongoConnection();
+  const mogno = await mongoConnection();
 
   res.send('Get all notes');
 })
@@ -15,4 +15,4 @@ router.get('/:id', function (req, res) {
     res.send(`get note id : ${req.params['id']} `);
 })
 
-module.exports = router;
+export default router;

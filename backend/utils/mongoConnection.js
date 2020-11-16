@@ -1,11 +1,10 @@
 
-const mongoose = require('mongoose');
-require('dotenv').config()
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config()
 
-console.log(process.env.MONGO_CONNECTION_STRING)
 
-
-async function MongoConnection(){
+async function mongoConnection(){
   try{
     //return mongoose.connect('mongodb://localhost:27017/notes', {useNewUrlParser: true});
     return mongoose.connect(process.env.MONGO_CONNECTION_STRING, {useNewUrlParser: true});
@@ -15,4 +14,4 @@ async function MongoConnection(){
 }
 
 
-module.exports = MongoConnection;
+export default mongoConnection;
