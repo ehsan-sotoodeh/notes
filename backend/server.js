@@ -1,8 +1,11 @@
 import express from 'express'
 import notesRouter from './controller/notesController.js'
+import bodyParser from 'body-parser';
 
 
 var app = express()
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Env vars
 const PORT = 4000;

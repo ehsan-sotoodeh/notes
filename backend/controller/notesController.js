@@ -11,7 +11,6 @@ router.get('/', async function (request, response) {
     response.send({result});
   } catch (error) {
     response.send({
-      'result': [],
       error
     });
 
@@ -19,9 +18,37 @@ router.get('/', async function (request, response) {
 
 })
 
-router.get('/:id', function (req, res) {
-    res.status(200);
-    res.send(`get note id : ${req.params['id']} `);
+router.get('/:id', function (request, response) {
+  response.status(200);
+  response.send(`get note id : ${request.params['id']} `);
+})
+
+router.post('/', async (request, response) => {
+
+    try {    
+      const mogno = await mongoConnection();
+
+      const newNote = new Note({
+        name : request.body.name,
+        text : request.body.text,
+        tags : request.body.tags,
+      });
+      newNote.save((error,doc) => {
+        if(error){
+          console.log(error);
+          response.send({
+            error
+          });
+        }
+        response.send({result : doc})
+      });
+
+    } catch (error) {
+      response.send({
+        error
+      });
+    }
+
 })
 
 export default router;

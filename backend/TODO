@@ -1,3 +1,18 @@
 Backend
     add validation to notes
+    CRUD
+        getAll
+            find
+            sort
+            pagination
+        getOne
+        add
+        update
+        delete
+    Mongo connection middleware
+    Upload on heroku
+Frontend
+    texteditor
+    search component
     
+
