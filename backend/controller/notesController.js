@@ -4,7 +4,7 @@ import mongoConnection from '../utils/mongoConnection.js'
 
 var router = express.Router();
 
-router.get('/', async function (request, response) {
+router.get('/', async (request, response) => {
   try {
     const mogno = await mongoConnection();
     const result = await Note.find({});
@@ -18,9 +18,18 @@ router.get('/', async function (request, response) {
 
 })
 
-router.get('/:id', function (request, response) {
-  response.status(200);
-  response.send(`get note id : ${request.params['id']} `);
+router.get('/:id', async (request, response) =>{
+  const id  = request.params['id'];
+  try {
+    const mogno = await mongoConnection();
+    const result = await Note.findById(id)
+    response.send({result});
+  } catch (error) {
+    response.send({
+      error
+    });
+
+  }
 })
 
 router.post('/', async (request, response) => {

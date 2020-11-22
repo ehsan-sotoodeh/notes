@@ -5,7 +5,7 @@ Backend
             find
             sort
             pagination
-        getOne
+        + getOne
         add
         update
         delete
@@ -14,5 +14,5 @@ Backend
 Frontend
     texteditor
     search component
-    
+
 
