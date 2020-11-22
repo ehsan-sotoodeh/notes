@@ -44,7 +44,28 @@ router.delete('/:id', async (request, response) =>{
     });
 
   }
-})
+});
+
+router.put('/:id', async (request, response) =>{
+  const id  = request.params['id'];
+  try {
+    const mogno = await mongoConnection();
+    const result = await Note.updateOne({ _id: id },{
+      name : request.body.name,
+      text : request.body.text,
+      tags : request.body.tags,
+    });
+    const updatedNote = await Note.findById(id)
+
+
+    response.send({ result : updatedNote });
+  } catch (error) {
+    response.send({
+      error
+    });
+
+  }
+});
 
 router.post('/', async (request, response) => {
 

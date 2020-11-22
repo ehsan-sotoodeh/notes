@@ -7,10 +7,13 @@ Backend
             pagination
         + getOne
         + add
-        update
+        + update
         + delete
     Mongo connection middleware
     Upload on heroku
+    jsLint
+    prettier
+
 Frontend
     texteditor
     search component
