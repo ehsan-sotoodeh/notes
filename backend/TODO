@@ -6,9 +6,9 @@ Backend
             sort
             pagination
         + getOne
-        add
+        + add
         update
-        delete
+        + delete
     Mongo connection middleware
     Upload on heroku
 Frontend

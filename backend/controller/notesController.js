@@ -32,6 +32,20 @@ router.get('/:id', async (request, response) =>{
   }
 })
 
+router.delete('/:id', async (request, response) =>{
+  const id  = request.params['id'];
+  try {
+    const mogno = await mongoConnection();
+    const result = await Note.deleteOne({ _id: id })
+    response.send({ result : 'Deleted item: ' + id  });
+  } catch (error) {
+    response.send({
+      error
+    });
+
+  }
+})
+
 router.post('/', async (request, response) => {
 
     try {    
