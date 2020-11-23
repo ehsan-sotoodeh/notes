@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "01aed850-edac-4542-b1fa-8a5aa1900da3",
+		"name": "Note",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/notes?searchKey=text&sortBy=createdAt&sortDirection=-1&page=1&limit=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"notes"
+					],
+					"query": [
+						{
+							"key": "searchKey",
+							"value": "text"
+						},
+						{
+							"key": "searchValue",
+							"value": "findTag",
+							"disabled": true
+						},
+						{
+							"key": "sortBy",
+							"value": "createdAt"
+						},
+						{
+							"key": "sortDirection",
+							"value": "-1"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createNew",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"a65sd4fa6zxsd45f of   qwe \",\r\n    \"text\" : \"some asdfasdf errtgf \",\r\n    \"tags\" : [\r\n        \"tag1\",\r\n        \"tag2\",\r\n        \"tag3\"\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOne",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"name of note1000 findMe\",\r\n    \"text\" : \"some text\",\r\n    \"tags\" : [\r\n        \"tag1\",\r\n        \"tag2\",\r\n        \"findTag\",\r\n        \"tag4\"\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/notes/5fbae8e87e2b0e28144486ea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"notes",
+						"5fbae8e87e2b0e28144486ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOneById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"name of note\",\r\n    \"text\" : \"some text\",\r\n    \"tags\" : [\r\n        \"tag1\",\r\n        \"tag2\",\r\n        \"tag3\"\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/notes/5fbad81151aa3a431c0801c9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"notes",
+						"5fbad81151aa3a431c0801c9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteOneById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"name of note\",\r\n    \"text\" : \"some text\",\r\n    \"tags\" : [\r\n        \"tag1\",\r\n        \"tag2\",\r\n        \"tag3\"\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/notes/5fbae983e4122a6340c26dfb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"notes",
+						"5fbae983e4122a6340c26dfb"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
