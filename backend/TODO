@@ -2,9 +2,10 @@ Backend
     add validation to notes
     CRUD
         getAll
-            find
-            sort
-            pagination
+            + find
+            + sort
+            + pagination
+            advanced pagination 
         + getOne
         + add
         + update
@@ -13,9 +14,12 @@ Backend
     Upload on heroku
     jsLint
     prettier
+    automated testing
 
 Frontend
     texteditor
     search component
+    automated testing
+
 
 

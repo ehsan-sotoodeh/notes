@@ -5,9 +5,30 @@ import mongoConnection from '../utils/mongoConnection.js'
 var router = express.Router();
 
 router.get('/', async (request, response) => {
+  const  searchKey = request.query['searchKey'];
+  const  searchValue = request.query['searchValue'];
+  const  sortBy = request.query['sortBy'];
+  const  sortDirection = request.query['sortDirection'];
+  const  page = parseInt(request.query['page']);
+  const  limit = parseInt(request.query['limit']);
+  
+  const filterObject = (searchValue)? {
+    [searchKey]:{'$regex' : searchValue, '$options' : 'i'}
+  }: {};
+
+  const sortObj = (sortBy)?{
+    [sortBy] : parseInt(sortDirection)
+  }:{};
+
+  const offset = (page)? (page-1) * limit : 0;
+
   try {
     const mogno = await mongoConnection();
-    const result = await Note.find({});
+    const result = await Note.find(filterObject)
+      .sort(sortObj)
+      .skip(offset)
+      .limit(limit);
+
     response.send({result});
   } catch (error) {
     response.send({
@@ -19,10 +40,10 @@ router.get('/', async (request, response) => {
 })
 
 router.get('/:id', async (request, response) =>{
-  const id  = request.params['id'];
+  const _id  = request.params['id'];
   try {
     const mogno = await mongoConnection();
-    const result = await Note.findById(id)
+    const result = await Note.findById(_id)
     response.send({result});
   } catch (error) {
     response.send({
@@ -33,11 +54,11 @@ router.get('/:id', async (request, response) =>{
 })
 
 router.delete('/:id', async (request, response) =>{
-  const id  = request.params['id'];
+  const _id  = request.params['id'];
   try {
     const mogno = await mongoConnection();
-    const result = await Note.deleteOne({ _id: id })
-    response.send({ result : 'Deleted item: ' + id  });
+    const result = await Note.deleteOne({ _id })
+    response.send({ result : 'Deleted item: ' + _id  });
   } catch (error) {
     response.send({
       error
@@ -47,15 +68,15 @@ router.delete('/:id', async (request, response) =>{
 });
 
 router.put('/:id', async (request, response) =>{
-  const id  = request.params['id'];
+  const _id  = request.params['id'];
   try {
     const mogno = await mongoConnection();
-    const result = await Note.updateOne({ _id: id },{
+    const result = await Note.updateOne({ _id },{
       name : request.body.name,
       text : request.body.text,
       tags : request.body.tags,
     });
-    const updatedNote = await Note.findById(id)
+    const updatedNote = await Note.findById(_id)
 
 
     response.send({ result : updatedNote });
@@ -76,6 +97,7 @@ router.post('/', async (request, response) => {
         name : request.body.name,
         text : request.body.text,
         tags : request.body.tags,
+        createdAt : new Date()
       });
       newNote.save((error,doc) => {
         if(error){
