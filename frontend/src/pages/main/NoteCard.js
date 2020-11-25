@@ -5,15 +5,16 @@ import { faBookmark,faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function NoteCard({note}){
-    const tags = note.tags.map(tag => {
+    const tags = note.tags.map((tag,index) => {
         return(
-            <span className='tag'>
+            <span className='tag' key={tag+index}>
                 #{tag}
             </span>
         )
     })
+
     return(
-        <Card style={{margin:'5px 0px'}} className="noteCard">
+        <Card style={{margin:'5px 0px'}} className="noteCard" >
         <Card.Header>
             
         <div className="d-flex">

@@ -29,7 +29,7 @@ router.get('/', async (request, response) => {
       .skip(offset)
       .limit(limit);
 
-    response.send({result});
+    response.send([...result]);
   } catch (error) {
     response.send({
       error

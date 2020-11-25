@@ -28,7 +28,7 @@ export default function CardsList(){
     
     const noteCards = notes.map(note => {
 
-        return (<NoteCard note={note} />);
+        return (<NoteCard note={note} key={note.createdAt} />);
     })
 
 
