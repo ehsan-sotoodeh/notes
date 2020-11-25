@@ -4,13 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark,faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function NoteCard(){
+export default function NoteCard({note}){
+    const tags = note.tags.map(tag => {
+        return(
+            <span className='tag'>
+                #{tag}
+            </span>
+        )
+    })
     return(
         <Card style={{margin:'5px 0px'}} className="noteCard">
         <Card.Header>
             
         <div className="d-flex">
-            <div className="mt-1"> Note title Plus a Lorem Ipsum to make it longer</div>
+            <div className="mt-1"> {note.name}</div>
             <div className="ml-auto">
                 <div className='btn'>
                     <FontAwesomeIcon icon={faPencilAlt}  className="text-secondary icon" />
@@ -28,11 +35,11 @@ export default function NoteCard(){
             <blockquote className="blockquote mb-0">
             <p>
                 {' '}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                erat a ante.{' '}
+                {note.text}
+                {' '}
             </p>
             <footer className="blockquote-footer">
-                #tag1 #tag2 #some_other_tag #new_tag #other
+                {tags}
             </footer>
             </blockquote>
         </Card.Body>
