@@ -5,6 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Dosis:600', 'sans-serif']
+  }
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

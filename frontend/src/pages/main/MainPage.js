@@ -1,12 +1,29 @@
+import react,{useEffect, useState} from 'react';
+
+
 import './main.css'
 import CardsList from './CardsList'
 import SearchBar from './SearchBar'
+import NoteService from '../../services/noteService';
 
 export default function  MainPage(){
+
+    const [notes,setNotes] = useState([]);
+    useEffect(async () => {
+        const noteService = new NoteService();
+        const fetchData = async () => {
+            const result =  await noteService.getNotes();
+            setNotes(result.data);
+        }
+        fetchData();
+      },[]);
+
+
+
     return (
         <div style={{marginTop:'20px'}}>
-            <SearchBar></SearchBar>
-            <CardsList></CardsList>
+            <SearchBar notes={notes} setNotes={setNotes}></SearchBar>
+            <CardsList notes={notes}></CardsList>
         </div>
     )
 }

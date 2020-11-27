@@ -1,6 +1,7 @@
 import express from 'express'
 import Note from '../model/notesModel.js';
-import mongoConnection from '../utils/mongoConnection.js'
+import mongoConnection from '../utils/mongoConnection.js';
+import mongoose from 'mongoose';
 
 var router = express.Router();
 
@@ -68,13 +69,13 @@ router.delete('/:id', async (request, response) =>{
 });
 
 router.put('/:id', async (request, response) =>{
-  const _id  = request.params['id'];
+  const _id  = mongoose.Types.ObjectId(request.params['id']);
   try {
     const mogno = await mongoConnection();
-    const result = await Note.updateOne({ _id },{
-      name : request.body.name,
-      text : request.body.text,
-      tags : request.body.tags,
+    const result = await Note.updateOne({ '_id': _id },{
+      name : request.body.params.name,
+      text : request.body.params.text,
+      tags : request.body.params.tags,
     });
     const updatedNote = await Note.findById(_id)
 
@@ -94,9 +95,9 @@ router.post('/', async (request, response) => {
       const mogno = await mongoConnection();
 
       const newNote = new Note({
-        name : request.body.name,
-        text : request.body.text,
-        tags : request.body.tags,
+        name : request.body.params.name,
+        text : request.body.params.text,
+        tags : request.body.params.tags,
         createdAt : new Date()
       });
       newNote.save((error,doc) => {

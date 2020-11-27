@@ -2,7 +2,26 @@
     font-size: 20px;
     margin-left: 0px 5px;
 }
+.noteCard .textInput{
+    border: none;
+    width:100%;
+    height: 40px;
+    background-color: #f8f9fa;
+    
+}
+.noteCard .textInput.tags{
+    font-size: 19px;
+    color:#5d5d5d;
+    background-color: #00000000;
+    border-top: 1px solid #5050c5;
+    font-family: 'Dosis', cursive;
+}
 
+
+
+.noteCard .textInput:focus{
+    outline: none;
+}
 .card-header{
     margin: 0px 5px;
 }
@@ -10,3 +29,4 @@
 .tag{
     margin: 0px 5px;
 }
+
