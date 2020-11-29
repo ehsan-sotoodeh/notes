@@ -13,7 +13,6 @@ export default function NoteCard({note:inputNote}){
     const tags = (!note.tags)? [] : note.tags.map(tag => '#'+tag).join(' ');
     const valueChanged = (value,id) => {
         if(id==='tags'){
-            console.log(value);
             value = value.split(' ')
             .map(tag => {
                 console.log(tag)
@@ -25,18 +24,17 @@ export default function NoteCard({note:inputNote}){
                 return tag;
             })
             .filter(tag => tag.length > 0)
-            console.log(value);
         }
         const newNote = {...note};
         newNote[id] = value;
         setNote(newNote);
     }
 
-    const saveNote = () => {
-        console.log('saveNote');
+    const saveNote = async () => {
         const noteservice = new NoteService();
         note.tags = note.tags.filter(tag => tag !==' ');
-        noteservice.saveNote(note)
+        const savedNote = await noteservice.saveNote(note);
+        setNote(savedNote.data);
     }
 
     return(

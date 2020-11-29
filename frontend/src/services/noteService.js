@@ -33,10 +33,21 @@ export default class NoteService {
             },
             headers: {"Access-Control-Allow-Origin": "*"}
         });
-        console.log(res)
+        return res;
     }
     addNewNote = async (note) =>{
-        console.log('addNewNote')
+        if(!note.name.length && !note.text.length){
+            return;
+        }
+        const res = await axios.post(NotesAPI,{ 
+            params:{
+                name:note.name,
+                text:note.text,
+                tags:note.tags
+            },
+            headers: {"Access-Control-Allow-Origin": "*"}
+        });
+        return res
     }
 
 
