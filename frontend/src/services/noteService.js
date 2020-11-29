@@ -33,23 +33,28 @@ export default class NoteService {
 
     updateNote = async (note) =>{
         const accessToken = localStorage.getItem('token');
-
+        const headers = { headers: {
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        }}
         const res = await axios.put(NotesAPI+'/'+note._id,{ 
             params:{
                 name:note.name,
                 text:note.text,
                 tags:note.tags
-            },
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Authorization: `Bearer ${accessToken}`,
             }
-        });
+            
+        }, headers );
         return res;
     }
     addNewNote = async (note) =>{
         const accessToken = localStorage.getItem('token');
-
+        const headers = { headers: {
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        }}
         if(!note.name.length && !note.text.length){
             return;
         }
@@ -58,12 +63,8 @@ export default class NoteService {
                 name:note.name,
                 text:note.text,
                 tags:note.tags
-            },
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                Authorization: `Bearer ${accessToken}`,
             }
-        });
+        },headers);
         return res
     }
     deleteNote = async (note) =>{
