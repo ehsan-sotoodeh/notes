@@ -2,7 +2,7 @@ import NoteCard from './NoteCard';
 import {Pagination} from 'react-bootstrap';
 
 
-export default function CardsList({notes}){
+export default function CardsList({notes,removeOneById}){
     let active = 1;
 
     const paginationItems = [];
@@ -20,7 +20,7 @@ export default function CardsList({notes}){
     
     const noteCards = notes.map(note => {
 
-        return (<NoteCard note={note} key={note.createdAt} />);
+        return (<NoteCard note={note} key={note.createdAt} removeOneById={removeOneById} />);
     })
 
 

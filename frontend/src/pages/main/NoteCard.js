@@ -1,16 +1,19 @@
 import react, { useState } from 'react'
 import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark,faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark,faTrashAlt,faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import TextareaAutosize from 'react-textarea-autosize';
 
 
 import NoteService from '../../services/noteService';
+import SimpleModal from '../../common/SimpleModal'
 
-
-export default function NoteCard({note:inputNote}){
+export default function NoteCard({note:inputNote,removeOneById}){
     const [note,setNote] = useState(inputNote);
+    const [showDeleteModal,setShowDeleteModal] = useState(false);
     const tags = (!note.tags)? [] : note.tags.map(tag => '#'+tag).join(' ');
+    const noteservice = new NoteService();
+
     const valueChanged = (value,id) => {
         if(id==='tags'){
             value = value.split(' ')
@@ -31,10 +34,28 @@ export default function NoteCard({note:inputNote}){
     }
 
     const saveNote = async () => {
-        const noteservice = new NoteService();
         note.tags = note.tags.filter(tag => tag !==' ');
         const savedNote = await noteservice.saveNote(note);
         setNote(savedNote.data);
+    }
+
+    const promptDelete = ()=>{
+        setShowDeleteModal(true);
+    }
+
+
+
+    const handleDeleteModalClose = async (action) =>{
+        setShowDeleteModal(false);
+        if(action === 'Delete'){
+            const res = await noteservice.deleteNote(note);
+            if(res.status === 200){
+                removeOneById(note._id);
+            }
+
+        }
+
+
     }
 
     return(
@@ -54,8 +75,14 @@ export default function NoteCard({note:inputNote}){
                 {/* <div className='btn'>
                     <FontAwesomeIcon icon={faPencilAlt}  className="text-secondary icon" />
                 </div> */}
-                <div className='btn'>
-                    <FontAwesomeIcon icon={faBookmark}  className="text-primary icon" />
+                <div className="row pr-2">
+                    <div className='btn col-6'>
+                        <FontAwesomeIcon icon={faBookmark}  className="text-primary icon" />
+                    </div>
+                    <div className='btn col-6' onClick={()=>promptDelete()}>
+                        <FontAwesomeIcon icon={faTrashAlt}  className="text-danger icon" />
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -83,6 +110,14 @@ export default function NoteCard({note:inputNote}){
                 />
             </footer>
             </blockquote>
+            <SimpleModal 
+                show={showDeleteModal}
+                handleClose={handleDeleteModalClose}
+                message={'Are you sure you want to delete:'}
+                itemName = {note.name }
+                action = {'Delete'}
+                buttonVariant = {'danger'}
+                />
         </Card.Body>
         </Card>
     )

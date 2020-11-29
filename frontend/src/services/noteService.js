@@ -49,6 +49,12 @@ export default class NoteService {
         });
         return res
     }
+    deleteNote = async (note) =>{
+        const res = await axios.delete(NotesAPI+'/'+note._id,{ 
+            headers: {"Access-Control-Allow-Origin": "*"}
+        });
+        return res
+    }
 
 
 }

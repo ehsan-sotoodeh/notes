@@ -80,7 +80,7 @@ router.put('/:id', async (request, response) =>{
     const updatedNote = await Note.findById(_id)
 
 
-    response.send({ result : updatedNote });
+    response.send({  ...updatedNote._doc });
   } catch (error) {
     response.send({
       error
@@ -107,7 +107,7 @@ router.post('/', async (request, response) => {
             error
           });
         }
-        response.send({result : doc})
+        response.send({...doc._doc});
       });
 
     } catch (error) {

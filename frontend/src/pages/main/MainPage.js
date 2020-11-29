@@ -19,11 +19,15 @@ export default function  MainPage(){
       },[]);
 
 
+    const removeOneById = (id)=>{
+        const newNotes = notes.filter(note => note._id !== id);
+        setNotes(newNotes);
+    }
 
     return (
         <div style={{marginTop:'20px'}}>
             <SearchBar notes={notes} setNotes={setNotes}></SearchBar>
-            <CardsList notes={notes}></CardsList>
+            <CardsList notes={notes} removeOneById={removeOneById} ></CardsList>
         </div>
     )
 }
