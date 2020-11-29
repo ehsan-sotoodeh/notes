@@ -17,11 +17,11 @@ export default function CardsList({notes,removeOneById}){
 
 
 
-    
-    const noteCards = notes.map(note => {
-
-        return (<NoteCard note={note} key={note.createdAt} removeOneById={removeOneById} />);
-    })
+    const noteCards = (notes.length)?
+                        notes.map(note => {
+                            return (<NoteCard note={note} key={note.createdAt} removeOneById={removeOneById} />);
+                        }):
+                        <p className="h5 pt-5 pb-5"><center>No Item Matched Searched Criteria</center></p>
 
 
     return(

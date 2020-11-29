@@ -4,11 +4,14 @@ const NotesAPI = process.env.REACT_APP_API_URL + '/notes'
 //const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
 export default class NoteService {
-    getNotes = async () => {
+    getNotes = async (searchTerm,searchKey) => {
         const accessToken = localStorage.getItem('token');
+        console.log('searchTerm',searchTerm)
+        console.log('searchKey',searchKey)
         return  await axios(NotesAPI,{ 
             params:{
-                searchKey:'text',
+                searchKey:searchKey,
+                searchValue: searchTerm,
                 sortBy:'createdAt',
                 sortDirection:-1,
                 page:1,
