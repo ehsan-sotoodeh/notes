@@ -13,9 +13,20 @@ router.get('/', async (request, response) => {
   const  page = parseInt(request.query['page']);
   const  limit = parseInt(request.query['limit']);
   
-  const filterObject = (searchValue)? {
-    [searchKey]:{'$regex' : searchValue, '$options' : 'i'}
-  }: {};
+  const searchKeyArray = searchKey.split(',');
+  let filterObject = {}
+  if(searchKeyArray.length > 1 && searchValue.length > 1){
+
+    const regexArray = searchKeyArray.map(key => {
+      return { [key]:{'$regex' : searchValue, '$options' : 'i'}};
+    });
+    filterObject = {
+      "$or":regexArray
+    }
+
+  }else if(searchKeyArray.length === 1 && searchValue.length > 1){
+    filterObject = {[searchKey]:{'$regex' : searchValue, '$options' : 'i'}}
+  }
 
   const sortObj = (sortBy)?{
     [sortBy] : parseInt(sortDirection)
@@ -29,10 +40,9 @@ router.get('/', async (request, response) => {
       .sort(sortObj)
       .skip(offset)
       .limit(limit);
-
     response.send([...result]);
   } catch (error) {
-    response.send({
+    response.sendStatus(500).send({
       error
     });
 
