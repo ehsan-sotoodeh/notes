@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const NotesAPI = process.env.REACT_APP_API_URL + '/notes'
+//const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
 export default class NoteService {
     getNotes = async () => {
+        const accessToken = localStorage.getItem('token');
         return  await axios(NotesAPI,{ 
             params:{
                 searchKey:'text',
@@ -12,7 +14,10 @@ export default class NoteService {
                 page:1,
                 limi:5
             },
-            headers: {"Access-Control-Allow-Origin": "*"}
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${accessToken}`,
+            }
         });
     }
 
@@ -24,18 +29,24 @@ export default class NoteService {
     }
 
     updateNote = async (note) =>{
-        console.log(note)
+        const accessToken = localStorage.getItem('token');
+
         const res = await axios.put(NotesAPI+'/'+note._id,{ 
             params:{
                 name:note.name,
                 text:note.text,
                 tags:note.tags
             },
-            headers: {"Access-Control-Allow-Origin": "*"}
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${accessToken}`,
+            }
         });
         return res;
     }
     addNewNote = async (note) =>{
+        const accessToken = localStorage.getItem('token');
+
         if(!note.name.length && !note.text.length){
             return;
         }
@@ -45,13 +56,21 @@ export default class NoteService {
                 text:note.text,
                 tags:note.tags
             },
-            headers: {"Access-Control-Allow-Origin": "*"}
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${accessToken}`,
+            }
         });
         return res
     }
     deleteNote = async (note) =>{
+        const accessToken = localStorage.getItem('token');
+
         const res = await axios.delete(NotesAPI+'/'+note._id,{ 
-            headers: {"Access-Control-Allow-Origin": "*"}
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                Authorization: `Bearer ${accessToken}`,
+            }
         });
         return res
     }

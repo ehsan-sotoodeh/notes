@@ -1,4 +1,5 @@
 import react,{useEffect, useState} from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 import './main.css'
@@ -7,8 +8,9 @@ import SearchBar from './SearchBar'
 import NoteService from '../../services/noteService';
 
 export default function  MainPage(){
-
     const [notes,setNotes] = useState([]);
+    const { isAuthenticated,isLoading,getAccessTokenSilently  } = useAuth0();
+
     useEffect(async () => {
         const noteService = new NoteService();
         const fetchData = async () => {
@@ -16,7 +18,7 @@ export default function  MainPage(){
             setNotes(result.data);
         }
         fetchData();
-      },[]);
+      },[isAuthenticated,isLoading]);
 
 
     const removeOneById = (id)=>{
