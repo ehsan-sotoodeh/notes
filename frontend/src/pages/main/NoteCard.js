@@ -18,7 +18,6 @@ export default function NoteCard({note:inputNote,removeOneById}){
         if(id==='tags'){
             value = value.split(' ')
             .map(tag => {
-                console.log(tag)
                 if(tag === '') return ' '
                 tag = tag.replace('#','');
                 tag = tag.replace(' ','');
