@@ -97,9 +97,9 @@ export default function NoteCard({note:inputNote,removeOneById}){
                     <FontAwesomeIcon icon={faPencilAlt}  className="text-secondary icon" />
                 </div> */}
                 <div className="row pr-2">
-                    <div className='btn col-6'>
+                    {/* <div className='btn col-6'>
                         <FontAwesomeIcon icon={faBookmark}  className="text-primary icon" />
-                    </div>
+                    </div> */}
                     <div className='btn col-6' onClick={()=>promptDelete()}>
                         <FontAwesomeIcon icon={faTrashAlt}  className="text-danger icon" />
                     </div>

@@ -11,14 +11,14 @@
 }
 .noteCard .textInput.tags{
     font-size: 1.3em;
-    color:#5d5d5d;
+    color:#b72424;
     background-color: #00000000;
     font-family: 'Kalam', cursive;
 }
 
 .noteCard .textInput.noteTitle{
     font-size: 2em;
-    color:#5d5d5d;
+    color:#6545b3;
     background-color: #00000000;
     font-family: 'Nerko One', cursive;
 }
