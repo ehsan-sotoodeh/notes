@@ -5,7 +5,7 @@ html, body {margin:0;padding:0;height:100%;}
   width: 1000px;
   margin: 0px auto;
   padding: 10px;
-  background-color: rgb(223, 223, 223);
+  /* background-color: rgb(223, 223, 223); */
   display: block;
   max-height: 100vh;
   overflow-y: scroll;

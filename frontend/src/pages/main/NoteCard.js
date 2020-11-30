@@ -1,9 +1,9 @@
 import react, { useState } from 'react'
 import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark,faTrashAlt,faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { faBookmark,faTrashAlt,faCalendar } from '@fortawesome/free-solid-svg-icons'
 import TextareaAutosize from 'react-textarea-autosize';
-
+import moment from 'moment';
 
 import NoteService from '../../services/noteService';
 import SimpleModal from '../../common/SimpleModal'
@@ -34,6 +34,9 @@ export default function NoteCard({note:inputNote,removeOneById}){
 
     const saveNote = async () => {
         note.tags = note.tags.filter(tag => tag !==' ');
+        if((note?.tags.length === 0) && (!note.title) && (!note.text)){
+            return;
+        }
         const savedNote = await noteservice.saveNote(note);
         setNote(savedNote.data);
     }
@@ -57,18 +60,37 @@ export default function NoteCard({note:inputNote,removeOneById}){
 
     }
 
+    const createdAt = new moment(new Date(note.createdAt)).format('llll');
+    
     return(
-        <Card style={{margin:'5px 0px'}} className="noteCard" >
-        <Card.Header>
-        
+        <div style={{margin:'5px 0px'}} className="noteCard" >
+        <div>
+        <div className="d-flex" >
+            <span className="">
+                    <span className="f12">
+                        <FontAwesomeIcon icon={faCalendar}  className="text-secondary f09 mr-2" />
+                    </span>
+                    <span className="date"> { createdAt }</span>
+                </span>
+        </div>
         <div className="row">
             <div className="col-11"> 
                 <input type='text' 
+                    placeholder="Title..."
                     value={note.name} 
-                    className={'textInput'}
+                    className={'textInput noteTitle mb-0 '}
                     onChange={(e)=>valueChanged(e.target.value,'name')}
                     onBlur={()=>saveNote()}
                 />
+                <input type='text' 
+                    placeholder="Tags.."
+                    value={tags} 
+                    className={'textInput tags'}
+                    onChange={(e)=>valueChanged(e.target.value,'tags')}
+                    onBlur={()=>saveNote()}
+                />
+
+
             </div>
             <div className="col-1">
                 {/* <div className='btn'>
@@ -81,33 +103,28 @@ export default function NoteCard({note:inputNote,removeOneById}){
                     <div className='btn col-6' onClick={()=>promptDelete()}>
                         <FontAwesomeIcon icon={faTrashAlt}  className="text-danger icon" />
                     </div>
-
                 </div>
             </div>
+
         </div>
-            
+
            
 
-        </Card.Header>
-        <Card.Body>
+        </div>
+        <div>
             <blockquote className="blockquote mb-0">
             <p>
                 <TextareaAutosize  
+                    style={{backgroundColor:'#00000000'}}
                     value={note.text} 
-                    className={'textInput'}
+                    className={'textInput '}
                     onChange={(e)=>valueChanged(e.target.value,'text')}
                     onBlur={()=>saveNote()}
+                    placeholder="Content..."
+
                 />
                 
             </p>
-            <footer className="">
-                <input type='text' 
-                    value={tags} 
-                    className={'textInput tags'}
-                    onChange={(e)=>valueChanged(e.target.value,'tags')}
-                    onBlur={()=>saveNote()}
-                />
-            </footer>
             </blockquote>
             <SimpleModal 
                 show={showDeleteModal}
@@ -117,8 +134,10 @@ export default function NoteCard({note:inputNote,removeOneById}){
                 action = {'Delete'}
                 buttonVariant = {'danger'}
                 />
-        </Card.Body>
-        </Card>
+        </div>
+        <hr/>
+
+        </div>
     )
 }
 

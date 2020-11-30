@@ -10,14 +10,24 @@
     
 }
 .noteCard .textInput.tags{
-    font-size: 19px;
+    font-size: 1.3em;
     color:#5d5d5d;
     background-color: #00000000;
-    border-top: 1px solid #5050c5;
-    font-family: 'Dosis', cursive;
+    font-family: 'Kalam', cursive;
 }
 
-
+.noteCard .textInput.noteTitle{
+    font-size: 2em;
+    color:#5d5d5d;
+    background-color: #00000000;
+    font-family: 'Nerko One', cursive;
+}
+.noteCard .date{
+    font-size: 1.1em;
+    color:#5d5d5d;
+    background-color: #00000000;
+    font-family: 'Patrick Hand', cursive;
+}
 
 .noteCard .textInput:focus{
     outline: none;

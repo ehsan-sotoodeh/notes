@@ -11,7 +11,7 @@ import WebFont from 'webfontloader';
 
 WebFont.load({
   google: {
-    families: ['Dosis:600', 'sans-serif']
+    families: ['Kalam:700','Nerko One','Patrick Hand', 'sans-serif']
   }
 });
 
