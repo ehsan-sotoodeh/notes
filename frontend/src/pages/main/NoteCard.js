@@ -113,11 +113,12 @@ export default function NoteCard({note:inputNote,removeOneById}){
         </div>
         <div>
             <blockquote className="blockquote mb-0">
+            <hr style={{margin:'2px'}}/>
             <p>
                 <TextareaAutosize  
                     style={{backgroundColor:'#00000000'}}
                     value={note.text} 
-                    className={'textInput '}
+                    className={'textInput textarea '}
                     onChange={(e)=>valueChanged(e.target.value,'text')}
                     onBlur={()=>saveNote()}
                     placeholder="Content..."
@@ -135,7 +136,11 @@ export default function NoteCard({note:inputNote,removeOneById}){
                 buttonVariant = {'danger'}
                 />
         </div>
-        <hr/>
+        <div className="blockEnd">
+            <center>
+                -------------------------------------
+            </center>
+        </div>
 
         </div>
     )
